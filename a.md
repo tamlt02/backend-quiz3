@@ -438,3 +438,223 @@ Arguments
 * [predicate=_.identity] (Function): The function invoked per iteration.
 
 Returns (boolean): Returns true if any element passes the predicate check, else false.
+
+## Array _.fromPairs(pairs)
+
+Return an **object** composed from key-value pairs
+
+```php
+_.fromPairs([['a', 1], ['b', 2]]);
+//{ 'a': 1, 'b': 2 }
+```
+
+Arguments
+
+* pairs (Array): The key-value pairs.
+
+## Array __.head(array) - _.last(array)
+
+Gets the first and last element of array.
+
+```php
+_.head([1, 2, 3]);
+// => 1
+_.last([1, 2, 3]);
+// => 3
+```
+
+Arguments
+
+* array (Array): The array to query.
+
+## Array _.nth(array, [n=0])
+
+Gets the element at index n of array. If n is negative, the nth element from the end is returned.
+
+Arguments
+
+* array (Array): The array to query.
+* [n=0] (number): The index of the element to return.
+
+Returns
+(*): Returns the nth element of array.
+
+## Array _.pull(array, [values])
+
+Removes all given values from array using SameValueZero for equality comparisons.
+
+```php
+var array = ['a', 'b', 'c', 'a', 'b', 'c'];
+ 
+_.pull(array, 'a', 'c');
+console.log(array);
+// => ['b', 'b']
+```
+
+Arguments
+
+* array (Array): The array to modify.
+* [values] (...*): The values to remove.
+
+Returns
+(Array): Returns array.
+
+### Array _.pullAll(array, values)
+
+This method is like _.pull except that it accepts an array of values to remove.
+
+```php
+var array = ['a', 'b', 'c', 'a', 'b', 'c'];
+ 
+_.pullAll(array, ['b', 'c']);
+console.log(array);
+// => ['b', 'b']
+```
+
+Arguments
+
+* array (Array): The array to modify.
+* values (Array): The values to remove.
+
+Returns
+(Array): Returns array.
+
+### Array __.pullAllBy(array, values, [iteratee=_.identity])
+
+This method is like _.pullAll except that it accepts iteratee which is invoked for each element of array and values to generate the criterion by which they're compared. The iteratee is invoked with one argument: (value).
+
+```php
+var array = [{ 'x': 1 }, { 'x': 2 }, { 'x': 3 }, { 'x': 1 }];
+ 
+_.pullAllBy(array, [{ 'x': 1 }, { 'x': 3 }], 'x');
+console.log(array);
+// => [{ 'x': 2 }]
+```
+
+Arguments
+
+* array (Array): The array to modify.
+* values (Array): The values to remove.
+* [iteratee=_.identity] (Function): The iteratee invoked per element.
+
+Returns
+(Array): Returns array.
+
+## Collection __.orderBy(collection, [iteratees=[_.identity]], [orders])
+
+This method is like _.sortBy except that it allows specifying the sort orders of the iteratees to sort by. If orders is unspecified, all values are sorted in ascending order. Otherwise, specify an order of "desc" for descending or "asc" for ascending sort order of corresponding values.
+
+```php
+var users = [
+  { 'user': 'fred',   'age': 48 },
+  { 'user': 'barney', 'age': 34 },
+  { 'user': 'fred',   'age': 40 },
+  { 'user': 'barney', 'age': 36 }
+];
+ 
+// Sort by `user` in ascending order and by `age` in descending order.
+_.orderBy(users, ['user', 'age'], ['asc', 'desc']);
+// => objects for [['barney', 36], ['barney', 34], ['fred', 48], ['fred', 40]]
+```
+
+Arguments
+
+* collection (Array|Object): The collection to iterate over.
+* [iteratees=[_.identity]] (Array[]|Function[]|Object[]|string[]): The iteratees to sort by.
+* [orders] (string[]): The sort orders of iteratees.
+
+Returns
+(Array): Returns the new sorted array.
+
+## Sample and Shuffle
+
+### _.sample(collection)
+
+Gets a random element from collection
+
+```php
+_.sample([1, 2, 3, 4]);
+// => 2
+```
+
+### _.sampleSize(collection, [n=1])
+
+Gets n random elements at unique keys from collection up to the size of collection.
+
+```php
+_.sampleSize([1, 2, 3], 2);
+// => [2, 3]
+```
+
+Arguments
+
+* collection (Array|Object): The collection to sample.
+* [n=1] (number): The number of elements to sample.
+v
+Returns
+(Array): Returns the random elements.
+
+### _.shuffle(collection)
+
+Creates an array of shuffled values, using a version of the Fisher-Yates shuffle.
+
+```php
+_.shuffle([1, 2, 3, 4]);
+// => [4, 1, 3, 2]
+```
+
+Arguments
+
+* collection (Array|Object): The collection to shuffle.
+
+Returns
+(Array): Returns the new shuffled array.
+
+## **Filter and Reject**
+
+### Filter
+
+Iterates over elements of collection, returning an array of all elements predicate returns truthy for. The predicate is invoked with three arguments: (value, index|key, collection).
+
+```php
+var users = [
+  { 'user': 'barney', 'age': 36, 'active': true },
+  { 'user': 'fred',   'age': 40, 'active': false }
+];
+
+_.filter(users, function(o) { return !o.active; });
+// => objects for ['fred']
+_.filter(users, 'active');
+// => objects for ['barney']
+```
+
+Arguments
+
+* collection (Array|Object): The collection to iterate over.
+* [predicate=_.identity] (Function): The function invoked per iteration.
+
+Returns
+(Array): Returns the new filtered array.
+
+### Reject
+
+The opposite of _.filter; this method returns the elements of collection that predicate does not return truthy for.
+
+```php
+var users = [
+  { 'user': 'barney', 'age': 36, 'active': false },
+  { 'user': 'fred',   'age': 40, 'active': true }
+];
+_.reject(users, function(o) { return !o.active; });
+// => objects for ['fred']
+_.reject(users, 'active');
+// => objects for ['barney']
+```
+
+Arguments
+
+* collection (Array|Object): The collection to iterate over.
+* [predicate=_.identity] (Function): The function invoked per iteration.
+
+Returns
+(Array): Returns the new filtered array.
